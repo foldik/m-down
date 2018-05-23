@@ -1,21 +1,21 @@
 const {
   expect
-} = require('chai');
-const tokenizer = require('./tokenizer');
+} = require( 'chai' );
+const tokenizer = require( './tokenizer' );
 
-describe('Tokenizer module ', function() {
+describe( 'Tokenizer module ', function () {
 
-  it('Simple text.', function() {
-    const result = tokenizer.tokenize('Simple text.');
-    expect(result).to.eql([{
+  it( 'Simple text.', function () {
+    const result = tokenizer.tokenize( 'Simple text.' );
+    expect( result ).to.eql( [ {
       type: 'text',
       value: 'Simple text.'
-    }]);
-  });
+    } ] );
+  } );
 
-  it('Text + [image](/image.md)', function() {
-    const result = tokenizer.tokenize('Text + [image](/image.md) and text.');
-    expect(result).to.eql([{
+  it( 'Text + [image](/image.md)', function () {
+    const result = tokenizer.tokenize( 'Text + [image](/image.md) and text.' );
+    expect( result ).to.eql( [ {
         type: 'text',
         value: 'Text + '
       },
@@ -47,12 +47,12 @@ describe('Tokenizer module ', function() {
         type: 'text',
         value: ' and text.'
       }
-    ]);
-  });
+    ] );
+  } );
 
-  it('*italic*', function() {
-    const result = tokenizer.tokenize('*italic*');
-    expect(result).to.eql([{
+  it( '*italic*', function () {
+    const result = tokenizer.tokenize( '*italic*' );
+    expect( result ).to.eql( [ {
         type: 'asterix',
         value: '*'
       },
@@ -64,12 +64,12 @@ describe('Tokenizer module ', function() {
         type: 'asterix',
         value: '*'
       }
-    ]);
-  });
+    ] );
+  } );
 
-  it('_italic_', function() {
-    const result = tokenizer.tokenize('_italic_');
-    expect(result).to.eql([{
+  it( '_italic_', function () {
+    const result = tokenizer.tokenize( '_italic_' );
+    expect( result ).to.eql( [ {
         type: 'underscore',
         value: '_'
       },
@@ -81,12 +81,12 @@ describe('Tokenizer module ', function() {
         type: 'underscore',
         value: '_'
       }
-    ]);
-  });
+    ] );
+  } );
 
-  it('value `code()` value2', function() {
-    const result = tokenizer.tokenize('value `code()` value2');
-    expect(result).to.eql([{
+  it( 'value `code()` value2', function () {
+    const result = tokenizer.tokenize( 'value `code()` value2' );
+    expect( result ).to.eql( [ {
         type: 'text',
         value: 'value '
       },
@@ -98,20 +98,20 @@ describe('Tokenizer module ', function() {
         type: 'text',
         value: ' value2'
       }
-    ]);
-  });
+    ] );
+  } );
 
-  it('`code()`', function() {
-    const result = tokenizer.tokenize('`code()`');
-    expect(result).to.eql([{
+  it( '`code()`', function () {
+    const result = tokenizer.tokenize( '`code()`' );
+    expect( result ).to.eql( [ {
       type: 'inline_code',
       value: 'code()'
-    }]);
-  });
+    } ] );
+  } );
 
-  it('!value', function() {
-    const result = tokenizer.tokenize('!value');
-    expect(result).to.eql([{
+  it( '!value', function () {
+    const result = tokenizer.tokenize( '!value' );
+    expect( result ).to.eql( [ {
         type: 'exclamation_mark',
         value: '!'
       },
@@ -119,12 +119,12 @@ describe('Tokenizer module ', function() {
         type: 'text',
         value: 'value'
       }
-    ]);
-  });
+    ] );
+  } );
 
-  it('value + new_line + new_line', function() {
-    const result = tokenizer.tokenize('value\n\n');
-    expect(result).to.eql([{
+  it( 'value + new_line + new_line', function () {
+    const result = tokenizer.tokenize( 'value\n\n' );
+    expect( result ).to.eql( [ {
         type: 'text',
         value: 'value'
       },
@@ -136,12 +136,12 @@ describe('Tokenizer module ', function() {
         type: 'new_line',
         value: '\n'
       }
-    ]);
-  });
+    ] );
+  } );
 
-  it('value + new_line + new_line with \\r\\n', function() {
-    const result = tokenizer.tokenize('value\r\n\r\n');
-    expect(result).to.eql([{
+  it( 'value + new_line + new_line with \\r\\n', function () {
+    const result = tokenizer.tokenize( 'value\r\n\r\n' );
+    expect( result ).to.eql( [ {
         type: 'text',
         value: 'value'
       },
@@ -153,12 +153,12 @@ describe('Tokenizer module ', function() {
         type: 'new_line',
         value: '\n'
       }
-    ]);
-  });
+    ] );
+  } );
 
-  it('Code block', function() {
-    const result = tokenizer.tokenize('value\r\n\r\n```java\ncode()\ncode2()\n```\nvalue2');
-    expect(result).to.eql([{
+  it( 'Code block', function () {
+    const result = tokenizer.tokenize( 'value\r\n\r\n```java\ncode()\ncode2()\n```\nvalue2' );
+    expect( result ).to.eql( [ {
         type: 'text',
         value: 'value'
       },
@@ -183,6 +183,6 @@ describe('Tokenizer module ', function() {
         type: 'text',
         value: 'value2'
       }
-    ]);
-  });
-})
+    ] );
+  } );
+} )
