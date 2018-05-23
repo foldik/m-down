@@ -5,24 +5,6 @@ function element( type, value ) {
   };
 }
 
-function tryFindNumberOfNewLines( text, index ) {
-  let tmpIndex = index;
-  let offset = 0;
-  let size = 0;
-  while ( tmpIndex < text.length && text.charAt( tmpIndex ) === '\n' || text.charAt( tmpIndex ) === '\r' ) {
-    if ( text.charAt( tmpIndex ) === '\n' ) {
-      size++;
-    }
-    offset++;
-    tmpIndex++;
-  }
-
-  return {
-    size: size,
-    offset: offset
-  };
-}
-
 function tryFindInlineCodeBlock( text, index ) {
   let tmpIndex = index;
   let offset = 0;
@@ -70,13 +52,10 @@ exports.tokenize = function ( text ) {
   const result = [];
   let index = 0;
   while ( index < text.length ) {
-    const newLines = tryFindNumberOfNewLines( text, index );
 
-    if ( newLines.size > 0 ) {
-      for ( var i = 0; i < newLines.size; i++ ) {
-        result.push( element( 'new_line', '\n' ) );
-      }
-      index += newLines.offset;
+    if ( text.charAt( index ) === '\n' ) {
+      result.push( element( 'new_line', '\n' ) );
+      index++;
     }
 
     if ( text.charAt( index ) === '-' ) {
@@ -120,7 +99,7 @@ exports.tokenize = function ( text ) {
     } else {
       let value = '';
       let hyphenReachedInNewLine = false;
-      while ( index < text.length && !specialCharacters.has( text.charAt( index ) ) && tryFindNumberOfNewLines( text, index ).size === 0 && !hyphenReachedInNewLine ) {
+      while ( index < text.length && !specialCharacters.has( text.charAt( index ) ) && text.charAt( index ) !== '\n' && !hyphenReachedInNewLine ) {
         if ( value.trim().length === 0 && text.charAt( index ) === '-' ) {
           hyphenReachedInNewLine = true;
         }

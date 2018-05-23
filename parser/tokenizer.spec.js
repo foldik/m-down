@@ -122,32 +122,11 @@ describe( 'Tokenizer module ', function () {
     ] );
   } );
 
-  it( 'value + new_line + new_line', function () {
-    const result = tokenizer.tokenize( 'value\n\n' );
+  it( 'value + new_line', function () {
+    const result = tokenizer.tokenize( 'value\n' );
     expect( result ).to.eql( [ {
         type: 'text',
         value: 'value'
-      },
-      {
-        type: 'new_line',
-        value: '\n'
-      },
-      {
-        type: 'new_line',
-        value: '\n'
-      }
-    ] );
-  } );
-
-  it( 'value + new_line + new_line with \\r\\n', function () {
-    const result = tokenizer.tokenize( 'value\r\n\r\n' );
-    expect( result ).to.eql( [ {
-        type: 'text',
-        value: 'value'
-      },
-      {
-        type: 'new_line',
-        value: '\n'
       },
       {
         type: 'new_line',
