@@ -122,6 +122,28 @@ exports.tokenize = function ( text ) {
       index += newLines.offset;
     }
 
+    if ( text.charAt( index ) === '-' ) {
+      if ( index === 0 ) {
+        result.push( element( 'hyphen', '-' ) );
+        index++;
+        continue;
+      } else {
+        let tmpIndex = index - 1;
+        let isHypen = true;
+        while ( tmpIndex > -1 && text.charAt( tmpIndex ) !== '\n' && isHypen ) {
+          if ( text.charAt( tmpIndex ) !== ' ' ) {
+            isHypen = false;
+          }
+          tmpIndex--;
+        }
+        if ( isHypen ) {
+          result.push( element( 'hyphen', '-' ) );
+          index++;
+          continue;
+        }
+      }
+    }
+
     if ( text.charAt( index ) === '`' ) {
       const codeResult = tryFindCodeBlock( text, index );
       if ( codeResult.match === true ) {
@@ -153,9 +175,15 @@ exports.tokenize = function ( text ) {
       index++;
     } else {
       let value = '';
-      while ( index < text.length && !specialCharacters.has( text.charAt( index ) ) && tryFindNumberOfNewLines( text, index ).size === 0 ) {
-        value += text.charAt( index );
-        index++;
+      let hyphenReachedInNewLine = false;
+      while ( index < text.length && !specialCharacters.has( text.charAt( index ) ) && tryFindNumberOfNewLines( text, index ).size === 0 && !hyphenReachedInNewLine) {
+        if (value.trim().length === 0 && text.charAt( index ) === '-') {
+          hyphenReachedInNewLine = true;
+        }
+        if (!hyphenReachedInNewLine) {
+          value += text.charAt( index );
+          index++;
+        }
       }
       if ( value !== '' ) {
         result.push( element( 'text', value ) );
