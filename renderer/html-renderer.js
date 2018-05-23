@@ -7,9 +7,9 @@ exports.render = function ( paragraphs ) {
       let item = paragraph[ j ];
       if ( item.type === 'code' ) {
         if ( item.lang !== '' ) {
-          content += '<pre><code class="' + item.lang + '">' + item.value + ' </code></pre>';
+          content += '<pre><code class="' + item.lang + '">' + item.code + ' </code></pre>';
         } else {
-          content += '<pre><code>' + item.value + ' </code></pre>';
+          content += '<pre><code>' + item.code + ' </code></pre>';
         }
       } else if ( item.type === 'inline_code' ) {
         content += '<code>' + item.value + '</code>';

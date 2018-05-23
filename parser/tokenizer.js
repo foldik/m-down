@@ -23,49 +23,6 @@ function tryFindNumberOfNewLines( text, index ) {
   };
 }
 
-function tryFindCodeBlock( text, index ) {
-  let tmpIndex = index;
-  let offset = 0;
-  while ( tmpIndex < text.length && text.charAt( tmpIndex ) === '`' ) {
-    offset++;
-    tmpIndex++;
-  }
-
-  if ( offset < 3 ) {
-    return {
-      match: false
-    };
-  }
-
-  let lang = '';
-  while ( tmpIndex < text.length && text.charAt( tmpIndex ) !== '\n' && text.charAt( tmpIndex ) !== '\r' ) {
-    lang += text.charAt( tmpIndex );
-    offset++;
-    tmpIndex++;
-  }
-
-  offset += tryFindNumberOfNewLines( text, tmpIndex ).offset;
-
-  let code = '';
-  while ( tmpIndex < text.length && text.charAt( tmpIndex ) !== '`' ) {
-    code += text.charAt( tmpIndex );
-    offset++;
-    tmpIndex++;
-  }
-
-  while ( tmpIndex < text.length && text.charAt( tmpIndex ) === '`' ) {
-    offset++;
-    tmpIndex++;
-  }
-
-  return {
-    match: true,
-    value: code.trim(),
-    lang: lang,
-    offset: offset - 1
-  };
-}
-
 function tryFindInlineCodeBlock( text, index ) {
   let tmpIndex = index;
   let offset = 0;
@@ -141,19 +98,6 @@ exports.tokenize = function ( text ) {
           index++;
           continue;
         }
-      }
-    }
-
-    if ( text.charAt( index ) === '`' ) {
-      const codeResult = tryFindCodeBlock( text, index );
-      if ( codeResult.match === true ) {
-        result.push( {
-          type: 'code',
-          value: codeResult.value,
-          lang: codeResult.lang
-        } );
-        index += codeResult.offset;
-        continue;
       }
     }
 

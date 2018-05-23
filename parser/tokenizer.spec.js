@@ -156,36 +156,6 @@ describe( 'Tokenizer module ', function () {
     ] );
   } );
 
-  it( 'Code block', function () {
-    const result = tokenizer.tokenize( 'value\r\n\r\n```java\ncode()\ncode2()\n```\nvalue2' );
-    expect( result ).to.eql( [ {
-        type: 'text',
-        value: 'value'
-      },
-      {
-        type: 'new_line',
-        value: '\n'
-      },
-      {
-        type: 'new_line',
-        value: '\n'
-      },
-      {
-        type: 'code',
-        lang: 'java',
-        value: 'code()\ncode2()'
-      },
-      {
-        type: 'new_line',
-        value: '\n'
-      },
-      {
-        type: 'text',
-        value: 'value2'
-      }
-    ] );
-  } );
-
   it( 'hyphen recognised as first character', function () {
     const result = tokenizer.tokenize( '-' );
     expect( result ).to.eql( [ {

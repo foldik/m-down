@@ -4,7 +4,7 @@ const {
 const paragraphProcessor = require('./paragraph-processor');
 
 describe('Paragraph processor module ', function() {
-
+  
   it('Process link', function() {
     const result = paragraphProcessor.processParagraphs([[
       { type: 'text', value: 'A' },
@@ -143,4 +143,4 @@ describe('Paragraph processor module ', function() {
         { type: 'text', value: 'B' }
     ]]);
   });
-})
+});
