@@ -38,3 +38,12 @@ p>code {
   border: 1px solid #263238;
   border-radius: 2px;
 }
+
+i {
+  font-style: italic;
+}
+
+strong {
+  font-style: bold;
+  font-weight: 700;
+}

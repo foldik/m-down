@@ -8,35 +8,23 @@ function hasValue( paragraph, index, value ) {
 
 exports.tryProcess = function ( paragraph, index ) {
   let tmpIndex = index + 1;
-  let isLink = false;
-  let name = '';
-  let link = '';
+  let isItalic = false;
+  let value = '';
   if ( hasType( paragraph, tmpIndex, 'text' ) ) {
-    name = paragraph[ tmpIndex ].value;
+    value = paragraph[ tmpIndex ].value;
     tmpIndex++;
-    if ( hasValue( paragraph, tmpIndex, ']' ) ) {
+    if ( hasValue( paragraph, tmpIndex, '*' ) || hasValue( paragraph, tmpIndex, '_' ) ) {
       tmpIndex++;
-      if ( hasValue( paragraph, tmpIndex, '(' ) ) {
-        tmpIndex++;
-        if ( hasType( paragraph, tmpIndex, 'text' ) ) {
-          link = paragraph[ tmpIndex ].value;
-          tmpIndex++;
-          if ( hasValue( paragraph, tmpIndex, ')' ) ) {
-            tmpIndex++;
-            isLink = true;
-          }
-        }
-      }
+      isItalic = true;
     }
   }
-  if ( isLink ) {
+  if ( isItalic ) {
     return {
       match: true,
       newIndex: tmpIndex,
       element: {
-        type: 'link',
-        value: name,
-        link: link
+        type: 'italic',
+        value: value
       }
     };
   } else {
