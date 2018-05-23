@@ -17,8 +17,10 @@ describe('Paragraph processor module ', function() {
       { type: 'text', value: 'D'}
     ]]);
 
-    expect(result).to.eql([
-      [ { type: 'text', value: 'A' }, { type: 'link', name: 'LINK_NAME', link: 'LINK' }, { type: 'text', value: 'B' }]
-    ]);
+    expect(result).to.eql([[
+        { type: 'text', value: 'A' },
+        { type: 'link', name: 'LINK_NAME', link: 'LINK' },
+        { type: 'text', value: 'B' }
+    ]]);
   });
 })
