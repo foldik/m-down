@@ -176,11 +176,11 @@ exports.tokenize = function ( text ) {
     } else {
       let value = '';
       let hyphenReachedInNewLine = false;
-      while ( index < text.length && !specialCharacters.has( text.charAt( index ) ) && tryFindNumberOfNewLines( text, index ).size === 0 && !hyphenReachedInNewLine) {
-        if (value.trim().length === 0 && text.charAt( index ) === '-') {
+      while ( index < text.length && !specialCharacters.has( text.charAt( index ) ) && tryFindNumberOfNewLines( text, index ).size === 0 && !hyphenReachedInNewLine ) {
+        if ( value.trim().length === 0 && text.charAt( index ) === '-' ) {
           hyphenReachedInNewLine = true;
         }
-        if (!hyphenReachedInNewLine) {
+        if ( !hyphenReachedInNewLine ) {
           value += text.charAt( index );
           index++;
         }

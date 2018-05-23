@@ -5,9 +5,12 @@ exports.processParagraphs = function ( paragraphs ) {
   for ( var i = 0; i < paragraphs.length; i++ ) {
     let paragraph = paragraphs[ i ];
 
-    
+    if (paragraph[0].type === 'hyphen') {
 
-    resultParagraphs.push( inlineTextProcessor.process( paragraph ) );
+    } else {
+      resultParagraphs.push( inlineTextProcessor.process( paragraph ) );
+    }
+
   }
   return resultParagraphs;
 }
