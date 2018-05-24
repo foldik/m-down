@@ -3,7 +3,7 @@ const {
 } = require( 'chai' );
 const tokenizer = require( './tokenizer' );
 
-describe( 'Tokenizer module ', function () {
+describe( 'Tokenizer ', function () {
 
   it( 'Simple text.', function () {
     const result = tokenizer.tokenize( 'Simple text.' );
