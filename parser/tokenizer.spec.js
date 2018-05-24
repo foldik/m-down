@@ -209,7 +209,7 @@ describe( 'Tokenizer ', function () {
     ] );
   } );
 
-  it( 'should not recognise hyphen in text', function () {
+  it( 'should not recognise hyphen in middle of the text', function () {
     const result = tokenizer.tokenize( 'TEXT-TEXT2' );
     expect( result ).to.eql( [
       {
