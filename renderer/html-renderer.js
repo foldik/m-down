@@ -22,20 +22,20 @@ exports.render = function ( paragraphs ) {
   for ( var i = 0; i < paragraphs.length; i++ ) {
     let paragraph = paragraphs[ i ];
     content += '<div>\n';
-    if ( paragraph.length === 1 && paragraph[ 0 ].type === 'code' ) {
-      if ( paragraph[ 0 ].lang !== '' ) {
-        content += '<pre><code class="' + paragraph[ 0 ].lang + '">' + paragraph[ 0 ].code + ' </code></pre>';
+    if ( paragraph.type === 'code' ) {
+      if ( paragraph.item.lang !== '' ) {
+        content += '<pre><code class="' + paragraph.item.lang + '">' + paragraph.item.code + ' </code></pre>';
       } else {
-        content += '<pre><code>' + paragraph[ 0 ].code + ' </code></pre>';
+        content += '<pre><code>' + paragraph.item.code + ' </code></pre>';
       }
     } else if ( paragraph.type === 'list' ) {
       content += '<ul>\n';
-      for ( let j = 0; j < paragraph.lines.length; j++ ) {
-        content += '<li>' + renderInlineItems( paragraph.lines[ j ] ) + '</li>';
+      for ( let j = 0; j < paragraph.items.length; j++ ) {
+        content += '<li>' + renderInlineItems( paragraph.items[ j ] ) + '</li>';
       }
       content += '\n</ul>\n';
     } else {
-      content += renderInlineItems( paragraph );
+      content += renderInlineItems( paragraph.items );
     }
     content += '\n</div>\n';
   }

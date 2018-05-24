@@ -22,7 +22,7 @@ describe('List processor ', function() {
 
     expect(result).to.eql({
       type: 'list',
-      lines:[
+      items:[
         [
           { type: 'link', value: 'LINK_NAME', link: 'LINK' },
           { type: 'text', value: ' hello' }

@@ -19,6 +19,6 @@ exports.process = function ( paragraph ) {
 
   return {
     type: 'list',
-    lines: lines
+    items: lines
   };
 }

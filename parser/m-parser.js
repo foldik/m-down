@@ -4,14 +4,16 @@ const paragraphProcessor = require( './paragraph-processor' );
 
 exports.parse = function ( text ) {
   const blocks = blockSeparator.findBlocks( text );
-  const tokenizedBlocks = [];
+  const processedParagraphs = [];
   for ( let i = 0; i < blocks.length; i++ ) {
     if ( !blocks[ i ].lang ) {
-      tokenizedBlocks.push( tokenizer.tokenize( blocks[ i ] ) );
+      processedParagraphs.push( paragraphProcessor.processParagraph( tokenizer.tokenize( blocks[ i ] ) ) );
     } else {
-      tokenizedBlocks.push( [ blocks[ i ] ] );
+      processedParagraphs.push( {
+        type: 'code',
+        item: blocks[ i ]
+      } );
     }
   }
-  const processedParagraphs = paragraphProcessor.processParagraphs( tokenizedBlocks );
   return processedParagraphs;
 }

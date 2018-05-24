@@ -30,12 +30,11 @@ pre {
   align-self: center;
 }
 
-p>code {
-  background-color: #90A4AE;
+div>code {
+  background-color: #263238;
   padding: 0.1rem 0.4rem;
-  color: #263238;
+  color: white;
   font-family: monospace, sans-serif;
-  border: 1px solid #263238;
   border-radius: 2px;
 }
 
