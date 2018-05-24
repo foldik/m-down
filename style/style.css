@@ -1,5 +1,5 @@
 html {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 16px;
 }
 
@@ -19,8 +19,39 @@ html {
 }
 
 .container>div, p {
-  padding: 0.5rem 0;
+  padding: 0.75rem 0;
   line-height: 1.5rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  padding: 0.45rem 0;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2.25rem;
+  padding: 0.40rem 0;
+}
+
+h3 {
+  font-size: 2rem;
+  padding: 0.35rem 0;
+}
+
+h4 {
+  font-size: 1.75rem;
+  padding: 0.3rem 0;
+}
+
+h5 {
+  font-size: 1.5rem;
+  padding: 0.25rem 0;
+}
+
+h6 {
+  font-size: 1.25rem;
+  padding: 0.2rem 0;
 }
 
 pre {
@@ -48,7 +79,7 @@ strong {
 }
 
 ul {
-  padding: 0.5rem;
+  padding: 0 0.5rem;
 }
 
 ul>li {

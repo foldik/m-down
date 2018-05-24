@@ -17,6 +17,15 @@ function renderInlineItems( paragraph ) {
   return content;
 }
 
+function isHeader( type ) {
+  return type === 'h1' ||
+    type === 'h2' ||
+    type === 'h3' ||
+    type === 'h4' ||
+    type === 'h5' ||
+    type === 'h6';
+}
+
 exports.render = function ( paragraphs ) {
   let content = '';
   for ( var i = 0; i < paragraphs.length; i++ ) {
@@ -37,6 +46,10 @@ exports.render = function ( paragraphs ) {
       }
       content += '\n</ul>\n';
       content += '</div>\n';
+    } else if ( isHeader( paragraph.type ) ) {
+      content += '<' + paragraph.type + '>\n';
+      content += renderInlineItems( paragraph.items );
+      content += '\n</' + paragraph.type + '>\n';
     } else if ( paragraph.type === 'p' ) {
       content += '<p>\n';
       content += renderInlineItems( paragraph.items );
