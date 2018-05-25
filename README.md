@@ -1,6 +1,6 @@
 # m-down
 
-__m-down__ is a markdown processor. Seriously man? Why did you create another markdown processor? Most people people would ask...
+__m-down__ is a markdown processor. Seriously man? Why did you create another markdown processor? Most people would ask...
 
 Markdown is an extremely easy language. You can create amaizing documentations by using it's human readable formatting techniques.
 
