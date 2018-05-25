@@ -28,7 +28,7 @@ exports.parse = function ( text ) {
   const blocks = blockSeparator.findBlocks( text );
   const processedParagraphs = [];
   for ( let i = 0; i < blocks.length; i++ ) {
-    if ( blocks[ i ].lang ) {
+    if ( blocks[ i ].lang !== undefined ) {
       processedParagraphs.push( {
         type: 'code',
         item: blocks[ i ]
