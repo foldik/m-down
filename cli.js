@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const fs = require( 'fs' );
+const fileUtils = require( './utils/file-utils.js' )
 const mParser = require( './parser/m-parser' );
 const mRenderer = require( './renderer/html-renderer' );
 const argv = require( 'minimist' )( process.argv.slice( 2 ) );
@@ -19,18 +20,7 @@ if ( fs.existsSync( argv.outDir ) ) {
 }
 fs.mkdirSync( argv.outDir );
 
-function copyDirectory( dir ) {
-  const files = fs.readdirSync( dir );
-  files.forEach( function ( file ) {
-    const currentFile = dir + '/' + file;
-    const resultDirectory = argv.outDir + '/' + currentFile.replace( argv.inDir + '/', '' );
-    if ( fs.statSync( currentFile ).isDirectory() && !fs.existsSync( resultDirectory ) ) {
-      fs.mkdirSync( resultDirectory );
-      console.log( resultDirectory );
-      copyDirectory( currentFile );
-    }
-  } );
-};
+fileUtils.copyDirStructureSyc( argv.inDir, argv.outDir, ( resultDir ) => console.log( `Created ${resultDir} directory` ) );
 
 function toHtml( inputFile, outputFile ) {
   console.time( `Reading ${inputFile}` );
@@ -79,6 +69,4 @@ function processMarkdownFiles( dir ) {
   } );
 };
 
-console.log( `Copy folder structure into ${argv.outDir} directory` );
-copyDirectory( argv.inDir );
 processMarkdownFiles( argv.inDir );
