@@ -65,8 +65,16 @@ function processMarkdownFiles( dir ) {
     if ( fs.statSync( currentFile ).isDirectory() ) {
       processMarkdownFiles( currentFile );
     } else if ( fs.statSync( currentFile ).isFile() ) {
-      const resultFile = argv.outDir + '/' + currentFile.replace( argv.inDir + '/', '' ).replace( '.md', '.html' );
-      toHtml( currentFile, resultFile );
+      if ( currentFile.endsWith( '.md' ) ) {
+        const resultFile = argv.outDir + '/' + currentFile.replace( argv.inDir + '/', '' ).replace( '.md', '.html' );
+        toHtml( currentFile, resultFile );
+      } else {
+        const resultFile = argv.outDir + '/' + currentFile.replace( argv.inDir + '/', '' );
+        fs.copyFile( currentFile, resultFile, function ( err ) {
+          if ( err ) throw err;
+          console.log( `Copied ${currentFile} to ${resultFile}` );
+        } );
+      }
     }
   } );
 };
