@@ -6,22 +6,6 @@ const mParser = require( './parser/m-parser' );
 const mRenderer = require( './renderer/html-renderer' );
 const argv = require( 'minimist' )( process.argv.slice( 2 ) );
 
-if ( !argv.inDir || !argv.outDir ) {
-  console.log( 'You must give the input directory and the output directory like:\r\n\r\n\tm-down --inDir=content --outDir=dist' );
-  process.exit( -1 );
-}
-
-console.log( `Input directory: ${argv.inDir}` );
-console.log( `Output directory: ${argv.outDir}` );
-
-if ( fs.existsSync( argv.outDir ) ) {
-  console.log( `Clean ${argv.outDir} directory` );
-  fs.rmdirSync( argv.outDir );
-}
-fs.mkdirSync( argv.outDir );
-
-fileUtils.copyDirStructureSyc( argv.inDir, argv.outDir, ( resultDir ) => console.log( `Created ${resultDir} directory` ) );
-
 function toHtml( inputFile, outputFile ) {
   console.time( `Reading ${inputFile}` );
   fs.readFile( inputFile, 'utf-8', function ( err, data ) {
@@ -44,29 +28,33 @@ function toHtml( inputFile, outputFile ) {
         console.timeEnd( `Saving ${outputFile}` );
       } );
     } );
-
   } );
 }
 
-function processMarkdownFiles( dir ) {
-  const files = fs.readdirSync( dir );
-  files.forEach( function ( file ) {
-    const currentFile = dir + '/' + file;
-    if ( fs.statSync( currentFile ).isDirectory() ) {
-      processMarkdownFiles( currentFile );
-    } else if ( fs.statSync( currentFile ).isFile() ) {
-      if ( currentFile.endsWith( '.md' ) ) {
-        const resultFile = argv.outDir + '/' + currentFile.replace( argv.inDir + '/', '' ).replace( '.md', '.html' );
-        toHtml( currentFile, resultFile );
-      } else {
-        const resultFile = argv.outDir + '/' + currentFile.replace( argv.inDir + '/', '' );
-        fs.copyFile( currentFile, resultFile, function ( err ) {
-          if ( err ) throw err;
-          console.log( `Copied ${currentFile} to ${resultFile}` );
-        } );
-      }
-    }
-  } );
-};
+if ( !argv.inDir || !argv.outDir ) {
+  console.log( 'You must give the input directory and the output directory like:\r\n\r\n\tm-down --inDir=content --outDir=dist' );
+  console.log( 'Args: ' + JSON.stringify( argv ) );
+  process.exit( -1 );
+}
 
-processMarkdownFiles( argv.inDir );
+if ( fs.existsSync( argv.outDir ) ) {
+  console.log( `Clean ${argv.outDir} directory` );
+  fs.rmdirSync( argv.outDir );
+}
+fs.mkdirSync( argv.outDir );
+
+fileUtils.copyDirStructureSyc( argv.inDir, argv.outDir, ( resultDir ) => console.log( `Created ${resultDir} directory` ) );
+const inputFiles = fileUtils.getFilesSync( argv.inDir );
+inputFiles.forEach( ( file ) => {
+  const sourceFile = argv.inDir + '/' + file;
+  if ( file.endsWith( '.md' ) ) {
+    const targetFile = argv.outDir + '/' + file.replace( '.md', '.html' );
+    toHtml( sourceFile, targetFile );
+  } else {
+    const targetFile = argv.outDir + '/' + file;
+    fs.copyFile( sourceFile, targetFile, function ( err ) {
+      if ( err ) throw err;
+      console.log( `Copied ${sourceFile} to ${targetFile}` );
+    } );
+  }
+} );
