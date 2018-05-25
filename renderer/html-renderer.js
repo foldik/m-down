@@ -50,6 +50,10 @@ exports.render = function ( paragraphs ) {
       content += '<' + paragraph.type + '>\n';
       content += renderInlineItems( paragraph.items );
       content += '\n</' + paragraph.type + '>\n';
+    } else if ( paragraph.type === 'img' ) {
+      content += '<div>\n';
+      content += '<img src="' + paragraph.link + '" alt="' + paragraph.value + '"></img>';
+      content += '</div>\n';
     } else if ( paragraph.type === 'p' ) {
       content += '<p>\n';
       content += renderInlineItems( paragraph.items );
