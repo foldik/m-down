@@ -3,7 +3,7 @@ const {
 } = require( 'chai' );
 const tokenizer = require( './tokenizer' );
 
-describe( 'Tokenizer module ', function () {
+describe( 'Tokenizer ', function () {
 
   it( 'Simple text.', function () {
     const result = tokenizer.tokenize( 'Simple text.' );
@@ -188,7 +188,7 @@ describe( 'Tokenizer module ', function () {
     ] );
   } );
 
-  it( 'should not recognise hyphen in text', function () {
+  it( 'should not recognise hyphen in middle of the text', function () {
     const result = tokenizer.tokenize( 'TEXT-TEXT2' );
     expect( result ).to.eql( [
       {
