@@ -41,10 +41,23 @@ exports.render = function ( paragraphs ) {
     } else if ( paragraph.type === 'list' ) {
       content += '<div>\n';
       content += '<ul>\n';
-      for ( let j = 0; j < paragraph.content.length; j++ ) {
-        content += '<li>' + renderInlineItems( paragraph.content[ j ] ) + '</li>';
+      for ( let j = 0; j < paragraph.items.length; j++ ) {
+        if ( j > 0 ) {
+          const depthDifference = paragraph.items[ j ].depth - paragraph.items[ j - 1 ].depth
+          if ( depthDifference === 0 || depthDifference < 0 ) {
+            content += '</li>';
+          }
+          if ( depthDifference > 0 ) {
+            content += '<ul>\n';
+          } else if ( depthDifference < 0 ) {
+            for ( var k = 0; k < Math.abs( depthDifference ); k++ ) {
+              content += '\n</ul>\n</li>';
+            }
+          }
+        }
+        content += '<li>' + renderInlineItems( paragraph.items[ j ].content );
       }
-      content += '\n</ul>\n';
+      content += '</li>\n</ul>\n';
       content += '</div>\n';
     } else if ( isHeader( paragraph.type ) ) {
       content += '<' + paragraph.type + '>\n';

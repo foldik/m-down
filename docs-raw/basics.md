@@ -62,7 +62,7 @@ Or **this will be bold** *and this will italic* and this will be normal.
 
 ## List
 
-Currently list support is very limited. It doesn't support nested and ordered lists yet.
+Currently list support is limited. It doesn't support ordered list yet.
 
 ```
 - This is the first item
@@ -73,6 +73,30 @@ Currently list support is very limited. It doesn't support nested and ordered li
 - This is the first item
 - This is the second item
 - and this is the third item
+
+### Nested list
+
+If you use nested lists make sure that you use only one space for the different list levels. For example:
+
+```
+- First level
+- First level
+ - Second level
+ - Second level
+- First level
+ - Second level
+  - Third level
+- First level
+```
+
+- First level
+- First level
+ - Second level
+ - Second level
+- First level
+ - Second level
+  - Third level
+- First level
 
 ## Coe blocks
 

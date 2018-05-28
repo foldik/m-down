@@ -16,15 +16,30 @@ exports.process = function ( block ) {
   }
 
   const lines = rawLines
-    .map( line => line.replace( '-', '' ).trim() )
-    .map( line => tokenizer.tokenize( line ) )
-    .map( tokens => inlineTextProcessor.process( tokens ) );
+    .map( line => {
+      return {
+        depth: line.indexOf( '-' ),
+        content: line.trim().replace( '-', '' ).trim()
+      };
+    } )
+    .map( line => {
+      return {
+        depth: line.depth,
+        tokens: tokenizer.tokenize( line.content )
+      };
+    } )
+    .map( line => {
+      return {
+        depth: line.depth,
+        content: inlineTextProcessor.process( line.tokens )
+      };
+    } );
 
   return {
     match: true,
     block: {
       type: 'list',
-      content: lines
+      items: lines
     }
   };
 }

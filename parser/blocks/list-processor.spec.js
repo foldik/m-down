@@ -12,25 +12,17 @@ describe( 'List processor ', function () {
       match: true,
       block: {
         type: 'list',
-        content: [
-        [
-            {
-              type: 'link',
-              link: 'LINK',
-              value: 'LINK-NAME'
+        items: [
+          {
+            depth: 0,
+            content: [
+              { type: 'link', link: 'LINK', value: 'LINK-NAME' },
+              { type: 'text', value: ' hello' } ]
           },
-            {
-              type: 'text',
-              value: ' hello'
-          }
-        ],
-        [
-            {
-              type: 'text',
-              value: 'B'
-          }
-        ]
-      ]
+          {
+            depth: 0,
+            content: [ { type: 'text', value: 'B' } ]
+          }]
       }
     } );
   } );
