@@ -32,31 +32,31 @@ exports.render = function ( paragraphs ) {
     let paragraph = paragraphs[ i ];
     if ( paragraph.type === 'code' ) {
       content += '<div>\n';
-      if ( paragraph.item.lang !== '' ) {
-        content += '<pre><code class="' + paragraph.item.lang + '">' + paragraph.item.code + ' </code></pre>';
+      if ( paragraph.lang !== '' ) {
+        content += '<pre><code class="' + paragraph.lang + '">' + paragraph.code + ' </code></pre>';
       } else {
-        content += '<pre><code>' + paragraph.item.code + ' </code></pre>';
+        content += '<pre><code>' + paragraph.code + ' </code></pre>';
       }
       content += '</div>\n';
     } else if ( paragraph.type === 'list' ) {
       content += '<div>\n';
       content += '<ul>\n';
-      for ( let j = 0; j < paragraph.items.length; j++ ) {
-        content += '<li>' + renderInlineItems( paragraph.items[ j ] ) + '</li>';
+      for ( let j = 0; j < paragraph.content.length; j++ ) {
+        content += '<li>' + renderInlineItems( paragraph.content[ j ] ) + '</li>';
       }
       content += '\n</ul>\n';
       content += '</div>\n';
     } else if ( isHeader( paragraph.type ) ) {
       content += '<' + paragraph.type + '>\n';
-      content += renderInlineItems( paragraph.items );
+      content += renderInlineItems( paragraph.content );
       content += '\n</' + paragraph.type + '>\n';
     } else if ( paragraph.type === 'img' ) {
       content += '<div>\n';
-      content += '<img src="' + paragraph.link + '" alt="' + paragraph.value + '"></img>';
+      content += '<img src="' + paragraph.link + '" alt="' + paragraph.alt + '"></img>';
       content += '</div>\n';
     } else if ( paragraph.type === 'p' ) {
       content += '<p>\n';
-      content += renderInlineItems( paragraph.items );
+      content += renderInlineItems( paragraph.content );
       content += '\n</p>\n';
     }
   }

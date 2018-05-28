@@ -1,6 +1,13 @@
-const inlineTextProcessor = require( './inline-text-processor' );
+const tokenizer = require( '../tokenize/tokenizer' );
+const inlineTextProcessor = require( '../inline/inline-text-processor' );
 
-exports.process = function ( paragraph ) {
+exports.process = function ( block ) {
+  if ( !block.startsWith( '-' ) ) {
+    return {
+      match: false
+    };
+  }
+  let paragraph = tokenizer.tokenize( block );
   let lines = [];
   let index = 0;
   let line = [];
@@ -18,7 +25,10 @@ exports.process = function ( paragraph ) {
   lines.push( inlineTextProcessor.process( line ) );
 
   return {
-    type: 'list',
-    items: lines
+    match: true,
+    block: {
+      type: 'list',
+      content: lines
+    }
   };
 }

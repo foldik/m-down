@@ -1,3 +1,5 @@
+const tokenizer = require( '../tokenize/tokenizer' );
+
 function hasType( paragraph, index, type ) {
   return index < paragraph.length && paragraph[ index ].type === type;
 }
@@ -6,7 +8,13 @@ function hasValue( paragraph, index, value ) {
   return index < paragraph.length && paragraph[ index ].value === value;
 }
 
-exports.tryProcess = function ( paragraph ) {
+exports.process = function ( block ) {
+  if ( !block.startsWith( '!' ) ) {
+    return {
+      match: false
+    };
+  }
+  let paragraph = tokenizer.tokenize( block );
   let index = 1;
   let isImage = false;
   let name = '';
@@ -35,9 +43,9 @@ exports.tryProcess = function ( paragraph ) {
   if ( isImage ) {
     return {
       match: true,
-      element: {
+      block: {
         type: 'img',
-        value: name,
+        alt: name,
         link: link
       }
     };
