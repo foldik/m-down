@@ -8,27 +8,29 @@ const argv = require( 'minimist' )( process.argv.slice( 2 ) );
 
 function toHtml( inputFile, outputFile ) {
   console.time( `Reading ${inputFile}` );
-  fs.readFile( inputFile, 'utf-8', function ( err, data ) {
-    if ( err ) throw err;
-    console.timeEnd( `Reading ${inputFile}` );
+  fileUtils.readLines( inputFile, {
+      encoding: 'utf-8'
+    } )
+    .then( function ( lines ) {
+      console.timeEnd( `Reading ${inputFile}` );
+      console.time( `Parsing ${inputFile}` );
+      const parsed = mParser.parse( lines );
+      console.timeEnd( `Parsing ${inputFile}` );
 
-    console.time( `Parsing ${inputFile}` );
-    const parsed = mParser.parse( data );
-    console.timeEnd( `Parsing ${inputFile}` );
+      console.time( `Rendering ${inputFile}` );
+      const html = mRenderer.render( parsed );
+      console.timeEnd( `Rendering ${inputFile}` );
 
-    console.time( `Rendering ${inputFile}` );
-    const html = mRenderer.render( parsed );
-    console.timeEnd( `Rendering ${inputFile}` );
-
-    console.time( `Saving ${outputFile}` );
-    fs.readFile( './template.html', 'utf-8', function ( err, data ) {
-      if ( err ) throw err;
-      fs.writeFile( outputFile, data.replace( 'CONTENT', html ), 'utf-8', function ( err, data ) {
+      console.time( `Saving ${outputFile}` );
+      fs.readFile( './template.html', 'utf-8', function ( err, data ) {
         if ( err ) throw err;
-        console.timeEnd( `Saving ${outputFile}` );
+        fs.writeFile( outputFile, data.replace( 'CONTENT', html ), 'utf-8', function ( err, data ) {
+          if ( err ) throw err;
+          console.timeEnd( `Saving ${outputFile}` );
+        } );
       } );
-    } );
-  } );
+    } )
+    .catch( ( err ) => console.error( err.message ) );
 }
 
 if ( !argv.inDir || !argv.outDir ) {
@@ -45,6 +47,7 @@ fs.mkdirSync( argv.outDir );
 
 fileUtils.copyDirStructureSyc( argv.inDir, argv.outDir, ( resultDir ) => console.log( `Created ${resultDir} directory` ) );
 const inputFiles = fileUtils.getFilesSync( argv.inDir );
+
 inputFiles.forEach( ( file ) => {
   const sourceFile = argv.inDir + '/' + file;
   if ( file.endsWith( '.md' ) ) {

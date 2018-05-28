@@ -24,8 +24,8 @@ function preprocessHeader( text ) {
   };
 }
 
-exports.parse = function ( text ) {
-  const blocks = blockSeparator.findBlocks( text );
+exports.parse = function ( lines ) {
+  const blocks = blockSeparator.findBlocks( lines );
   const processedParagraphs = [];
   for ( let i = 0; i < blocks.length; i++ ) {
     if ( blocks[ i ].lang !== undefined ) {
