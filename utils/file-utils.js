@@ -1,4 +1,5 @@
 const fs = require( 'fs' );
+const readline = require( 'readline' );
 
 exports.copyDirStructureSyc = function ( sourceDir, targetDir, afterCopyCallback ) {
   function copyDirectory( dir ) {
@@ -35,4 +36,17 @@ exports.getFilesSync = function ( directory ) {
   const fileSet = new Set();
   getFilesRecursive( directory, fileSet );
   return fileSet;
+};
+
+exports.readLines = function ( file, options ) {
+  return new Promise( function ( resolve, reject ) {
+    const fileStream = fs.createReadStream( file, options );
+    fileStream.on( 'error', reject );
+    const lineReader = readline.createInterface( {
+      input: fileStream
+    } );
+    const lines = [];
+    lineReader.on( 'line', ( line ) => lines.push( line ) );
+    lineReader.on( 'close', () => resolve( lines ) );
+  } );
 };
