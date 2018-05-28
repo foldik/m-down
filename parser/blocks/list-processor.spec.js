@@ -5,8 +5,8 @@ const listProcessor = require( './list-processor' );
 
 describe( 'List processor ', function () {
 
-  it( 'Process list', function () {
-    const result = listProcessor.process( '-[LINK-NAME](LINK) hello\n- B' );
+  it( 'Process valid list', function () {
+    const result = listProcessor.process( '- [LINK-NAME](LINK) hello\n- B' );
 
     expect( result ).to.eql( {
       match: true,
@@ -27,11 +27,19 @@ describe( 'List processor ', function () {
         [
             {
               type: 'text',
-              value: ' B'
+              value: 'B'
           }
         ]
       ]
       }
+    } );
+  } );
+
+  it( 'Not match if lines not start with hyphen', function () {
+    const result = listProcessor.process( '- [LINK-NAME](LINK) hello\nB' );
+
+    expect( result ).to.eql( {
+      match: false
     } );
   } );
 } );
