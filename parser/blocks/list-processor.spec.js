@@ -6,18 +6,18 @@ const listProcessor = require( './list-processor' );
 describe( 'List processor ', function () {
 
   it( 'Process list', function () {
-    const result = listProcessor.process( '-[LINK_NAME](LINK) hello\n- B' );
+    const result = listProcessor.process( '-[LINK-NAME](LINK) hello\n- B' );
 
     expect( result ).to.eql( {
       match: true,
-      item: {
+      block: {
         type: 'list',
-        items: [
+        content: [
         [
             {
               type: 'link',
-              value: 'LINK_NAME',
-              link: 'LINK'
+              link: 'LINK',
+              value: 'LINK-NAME'
           },
             {
               type: 'text',
