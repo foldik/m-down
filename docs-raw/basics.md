@@ -74,6 +74,30 @@ Currently list support is very limited. It doesn't support nested and ordered li
 - This is the second item
 - and this is the third item
 
+## Coe blocks
+
+```
+ ```java
+ public class Main {
+
+   public static void main(String[] args) {
+     System.out.println("Hello m-down!");
+   }
+
+ }
+ ```
+```
+
+```java
+public class Main {
+
+  public static void main(String[] args) {
+    System.out.println("Hello m-down!");
+  }
+
+}
+```
+
 ## Images, gifs
 
 ```
