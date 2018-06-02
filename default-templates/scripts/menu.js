@@ -1,7 +1,17 @@
 'use strict';
 
+const main = document.querySelector( '.page' );
+const links = document.querySelectorAll( 'a[data-page]' );
+
+links.forEach( function ( e ) {
+  e.addEventListener( 'click', function ( event ) {
+    event.preventDefault();
+    page( '/page' + e.getAttribute( 'data-page' ) );
+  } );
+} );
+
 page( '/', function ( context ) {
-  page( '/page/basics' );
+  page( '/page' + links[ 0 ].getAttribute( 'data-page' ) );
 } );
 
 page( '/page/:pageName', function ( ctx ) {
@@ -25,14 +35,4 @@ page( '/page/:pageName', function ( ctx ) {
 
 page.start( {
   hashbang: true
-} );
-
-const main = document.querySelector( '.page' );
-const links = document.querySelectorAll( 'a[data-page]' );
-
-links.forEach( function ( e ) {
-  e.addEventListener( 'click', function ( event ) {
-    event.preventDefault();
-    page( '/page' + e.getAttribute( 'data-page' ) );
-  } );
 } );

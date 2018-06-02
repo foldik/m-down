@@ -1,4 +1,4 @@
-# m-down basics language support
+# Markdown Syntax
 
 This page shows the basic markdown syntax that you can use on your site.
 

@@ -1,0 +1,61 @@
+<h1>
+<span> Getting started</span>
+</h1>
+<p>
+<span><strong>M-down</strong></span><span> is a command line tool which helps you to create documentations, descriptions, teaching materials using extendable markdown language.</span>
+</p>
+<p>
+<span>Let's quickly go through the example below to get the idea, how can you use </span><span><strong>M-down</strong></span><span>.</span>
+</p>
+<h2>
+<span> Prerequest</span>
+</h2>
+<p>
+<span><strong>M-down</strong></span><span> is written in </span><a href="https://nodejs.org/en/">NodeJS</a><span>. Make sure to install it before you proceed.</span>
+</p>
+<h2>
+<span> Hello World</span><span>!</span>
+</h2>
+<p>
+<span>Create an empty folder in your computer and open up a command line or bash.</span>
+</p>
+<p>
+<span><strong>1.</strong></span><span> Create a new folder called </span><code>pages</code><span> where you will store the content for your site.</span>
+</p>
+<div>
+<pre><code class="bash">mkdir pages </code></pre></div>
+<p>
+<span><strong>2.</strong></span><span> Install </span><span><strong>m-down</strong></span><span>.</span>
+</p>
+<div>
+<pre><code class="bash">npm -g install m-down </code></pre></div>
+<p>
+<span><strong>3.</strong></span><span> Create your hello world page.</span>
+</p>
+<div>
+<pre><code class="bash">echo # Hello World! > pages/hello.md </code></pre></div>
+<p>
+<span><strong>4.</strong></span><span> Configure the menu.</span>
+</p>
+<div>
+<pre><code class="bash">echo [{ "link": "/hello", "name": "Hello World" }] > menu.json </code></pre></div>
+<p>
+<span><strong>5.</strong></span><span> And generate your site</span><span>!</span>
+</p>
+<div>
+<pre><code class="bash">m-down </code></pre></div>
+<h3>
+<span> Congratulation</span><span>!</span>
+</h3>
+<p>
+<span>Now you can serve your content to the public via </span><a href="https://pages.github.com/">GitHub Pages</a><span> or just try it locally using the </span><code>static-server</code><span> npm package.</span>
+</p>
+<div>
+<pre><code class="bash">npm -g install static-server </code></pre></div>
+<div>
+<pre><code class="bash">cd dist/
+
+static-server -p 8080 </code></pre></div>
+<p>
+<span>And you did it</span><span>!</span><span> </span><a href="http://localhost:8080">Here</a><span> you go</span><span>!</span><span> :</span><span>)</span>
+</p>

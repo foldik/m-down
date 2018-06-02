@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const fs = require( 'fs' );
+const path = require( 'path' );
 const fileUtils = require( './utils/file-utils.js' )
 const mParser = require( './parser/m-parser' );
 const mRenderer = require( './renderer/html-renderer' );
@@ -27,8 +28,11 @@ function toHtml( inputFile, outputFile ) {
     .catch( ( err ) => console.error( err.message ) );
 }
 
-let inDir = argv.inDir || 'pages';
-let outDir = argv.outDir || 'dist';
+const inDir = argv.inDir || 'pages';
+const outDir = argv.outDir || 'dist';
+const menu = argv.menuConfig || './menu.json';
+const indexTemplate = argv.indexTemplate || path.join( __dirname, 'index.html' );
+const skipDefaultStylesAndScripts = argv.skipDefaultStylesAndScripts || false;
 
 fileUtils.cleanDirSync( outDir );
 fileUtils.copyDirStructureSyc( inDir, outDir, ( resultDir ) => console.log( `Created ${resultDir} directory` ) );
@@ -46,17 +50,27 @@ fileUtils.getFilesSync( inDir ).forEach( ( file ) => {
   }
 } );
 
-if ( fs.existsSync( './menu.json' ) ) {
-  fs.readFile( './menu.json', 'utf8', function ( err, data ) {
+if ( !skipDefaultStylesAndScripts && fs.existsSync( menu ) ) {
+  fs.readFile( menu, 'utf8', function ( err, data ) {
     if ( err ) throw err;
     const menuContent = menuRenderer.render( JSON.parse( data ) );
-    fs.readFile( './index.html', 'utf8', function ( err, data ) {
+    fs.readFile( indexTemplate, 'utf8', function ( err, data ) {
       if ( err ) throw err;
       const indexContent = data.replace( 'MENU', menuContent );
       fs.writeFile( outDir + '/index.html', indexContent, 'utf-8', function ( err ) {
         if ( err ) throw err;
         console.log( `Saved ${outDir}/index.html` );
       } );
+    } );
+  } );
+  const defaultTemplateDirectory = path.join( __dirname, 'default-templates' );
+  fileUtils.copyDirStructureSyc( defaultTemplateDirectory, outDir, ( resultDir ) => console.log( `Created scripts and styles directory` ) );
+  fileUtils.getFilesSync( defaultTemplateDirectory ).forEach( ( file ) => {
+    const sourceFile = defaultTemplateDirectory + '/' + file;
+    const targetFile = outDir + '/' + file;
+    fs.copyFile( sourceFile, targetFile, function ( err ) {
+      if ( err ) throw err;
+      console.log( `Copied ${sourceFile} to ${targetFile}` );
     } );
   } );
 }

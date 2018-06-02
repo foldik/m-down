@@ -1,6 +1,10 @@
 [
   {
-    "link": "/basics",
-    "name": "Basics"
+    "link": "/gettingStarted",
+    "name": "Getting Started"
+  },
+  {
+    "link": "/markdownSyntax",
+    "name": "Markdown Syntax"
   }
 ]
