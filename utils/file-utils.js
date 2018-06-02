@@ -1,6 +1,27 @@
 const fs = require( 'fs' );
 const readline = require( 'readline' );
 
+function rmDirSync( path ) {
+  if ( fs.existsSync( path ) ) {
+    fs.readdirSync( path ).forEach( function ( file, index ) {
+      var curPath = path + "/" + file;
+      if ( fs.lstatSync( curPath ).isDirectory() ) {
+        rmDirSync( curPath );
+      } else {
+        fs.unlinkSync( curPath );
+      }
+    } );
+    fs.rmdirSync( path );
+  }
+}
+
+exports.rmDirSync = rmDirSync;
+
+exports.cleanDirSync = function ( path ) {
+  rmDirSync( path );
+  fs.mkdirSync( path );
+};
+
 exports.copyDirStructureSyc = function ( sourceDir, targetDir, afterCopyCallback ) {
   function copyDirectory( dir ) {
     const files = fs.readdirSync( dir );

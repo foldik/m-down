@@ -33,12 +33,7 @@ function toHtml( inputFile, outputFile ) {
 let inDir = argv.inDir || 'pages';
 let outDir = argv.outDir || 'dist';
 
-if ( fs.existsSync( outDir ) ) {
-  console.log( `Clean ${outDir} directory` );
-  fs.rmdirSync( outDir );
-}
-fs.mkdirSync( outDir );
-
+fileUtils.cleanDirSync( outDir );
 fileUtils.copyDirStructureSyc( inDir, outDir, ( resultDir ) => console.log( `Created ${resultDir} directory` ) );
 fileUtils.getFilesSync( inDir ).forEach( ( file ) => {
   const sourceFile = inDir + '/' + file;
