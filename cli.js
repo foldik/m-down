@@ -33,28 +33,23 @@ function toHtml( inputFile, outputFile ) {
     .catch( ( err ) => console.error( err.message ) );
 }
 
-if ( !argv.inDir || !argv.outDir ) {
-  console.log( 'You must give the input directory and the output directory like:\r\n\r\n\tm-down --inDir=content --outDir=dist' );
-  console.log( 'Args: ' + JSON.stringify( argv ) );
-  process.exit( -1 );
+let inDir = argv.inDir || 'pages';
+let outDir = argv.outDir || 'dist';
+
+if ( fs.existsSync( outDir ) ) {
+  console.log( `Clean ${outDir} directory` );
+  fs.rmdirSync( outDir );
 }
+fs.mkdirSync( outDir );
 
-if ( fs.existsSync( argv.outDir ) ) {
-  console.log( `Clean ${argv.outDir} directory` );
-  fs.rmdirSync( argv.outDir );
-}
-fs.mkdirSync( argv.outDir );
-
-fileUtils.copyDirStructureSyc( argv.inDir, argv.outDir, ( resultDir ) => console.log( `Created ${resultDir} directory` ) );
-const inputFiles = fileUtils.getFilesSync( argv.inDir );
-
-inputFiles.forEach( ( file ) => {
-  const sourceFile = argv.inDir + '/' + file;
+fileUtils.copyDirStructureSyc( inDir, outDir, ( resultDir ) => console.log( `Created ${resultDir} directory` ) );
+fileUtils.getFilesSync( inDir ).forEach( ( file ) => {
+  const sourceFile = inDir + '/' + file;
   if ( file.endsWith( '.md' ) ) {
-    const targetFile = argv.outDir + '/' + file.replace( '.md', '.html' );
+    const targetFile = outDir + '/' + file.replace( '.md', '.html' );
     toHtml( sourceFile, targetFile );
   } else {
-    const targetFile = argv.outDir + '/' + file;
+    const targetFile = outDir + '/' + file;
     fs.copyFile( sourceFile, targetFile, function ( err ) {
       if ( err ) throw err;
       console.log( `Copied ${sourceFile} to ${targetFile}` );

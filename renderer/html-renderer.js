@@ -1,14 +1,16 @@
-const codeRenderer = require( './code-renderer' );
-const listRenderer = require( './list-renderer' );
 const headerRenderer = require( './header-renderer' );
-const imageRenderer = require( './image-renderer' );
 const paragraphRenderer = require( './paragraph-renderer' );
+const listRenderer = require( './list-renderer' );
+const codeRenderer = require( './code-renderer' );
+const blockquoteRenderer = require( './blockquote-renderer' );
+const imageRenderer = require( './image-renderer' );
 
 const renderers = [
   headerRenderer,
   paragraphRenderer,
   listRenderer,
   codeRenderer,
+  blockquoteRenderer,
   imageRenderer
 ];
 

@@ -26,4 +26,4 @@ chessboard: game_Player1_Player2.txt | step: 35 white
 
 ## Documentation
 
-You can find the documentation [here](https://foldik.github.io/m-down/docs/basics).
+You can find the documentation [here](https://foldik.github.io/m-down/dist/basics).
