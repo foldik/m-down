@@ -2,6 +2,7 @@ const codeProcessor = require( './code-processor' );
 const listProcessor = require( './list-processor' );
 const headerProcessor = require( './header-processor' );
 const imageProcessor = require( './image-processor' );
+const blockquoteProcessor = require( './blockquote-processor' );
 const paragraphProcessor = require( './paragraph-processor' );
 
 const processors = [
@@ -9,6 +10,7 @@ const processors = [
   listProcessor,
   headerProcessor,
   imageProcessor,
+  blockquoteProcessor,
   paragraphProcessor
 ];
 
