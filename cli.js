@@ -22,12 +22,9 @@ function toHtml( inputFile, outputFile ) {
       console.timeEnd( `Rendering ${inputFile}` );
 
       console.time( `Saving ${outputFile}` );
-      fs.readFile( './template.html', 'utf-8', function ( err, data ) {
+      fs.writeFile( outputFile, html, 'utf-8', function ( err, data ) {
         if ( err ) throw err;
-        fs.writeFile( outputFile, data.replace( 'CONTENT', html ), 'utf-8', function ( err, data ) {
-          if ( err ) throw err;
-          console.timeEnd( `Saving ${outputFile}` );
-        } );
+        console.timeEnd( `Saving ${outputFile}` );
       } );
     } )
     .catch( ( err ) => console.error( err.message ) );

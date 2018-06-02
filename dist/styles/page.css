@@ -1,0 +1,94 @@
+.page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page>h1:first-child {
+  margin: 0 0 2rem;
+}
+
+h1 {
+  font-size: 3rem;
+  padding: 0.75rem;
+  font-weight: 500;
+  margin: 2rem 0;
+  border-bottom: 1px solid #BDBDBD;
+}
+
+h2 {
+  font-size: 2.25rem;
+  padding: 0.5rem 0.75rem;
+  margin: 1.5rem 0;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+h3 {
+  font-size: 2rem;
+  padding: 0.35rem 0.75rem;
+}
+
+h4 {
+  font-size: 1.75rem;
+  padding: 0.3rem 0.75rem;
+}
+
+h5 {
+  font-size: 1.5rem;
+  padding: 0.25rem 0.75rem;
+}
+
+h6 {
+  font-size: 1.25rem;
+  padding: 0.2rem 0.75rem;
+}
+
+p {
+  line-height: 1.5rem;
+  padding: 0.75rem 1rem;
+  text-align: justify;
+}
+
+pre {
+  padding: 1rem;
+  margin: 0.75rem 1rem;
+  background-color: #263238;
+  font-family: monospace, sans-serif;
+  color: white;
+  border-radius: 4px;
+}
+
+i {
+  font-style: italic;
+}
+
+strong {
+  font-style: bold;
+  font-weight: 700;
+}
+
+ul {
+  padding: 0 0.5rem;
+}
+
+ul>li {
+  padding: 0.2rem 0.5rem;
+  list-style-position: inside;
+  list-style-type: disc;
+}
+
+img {
+  display: block;
+  max-width: 75%;
+  text-align: center;
+  margin: auto;
+}
+
+blockquote {
+  margin: 1rem 1rem;
+  padding: 2rem 1rem;
+  border-left: 4px solid #607D8B;
+  background-color: #CFD8DC;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}

@@ -1,0 +1,44 @@
+html {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  display: grid;
+  height: 100vh;
+  grid-template-areas: "sidebar main";
+  grid-template-columns: 250px 1fr;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  padding-top: 3rem;
+  background-color: #37474F;
+}
+
+.main {
+  grid-area: main;
+  padding: 2rem 2rem;
+}
+
+a[data-page] {
+  display: block;
+  text-decoration: none;
+  color: white;
+  padding: 0.75rem 2rem;
+  transition: all 0.2s;
+  font-size: 1rem;
+}
+
+a[data-page].active {
+  background-color: #263238;
+  border-right: 5px solid #ddd;
+}
+
+a[data-page]:hover {
+  background-color: #263238;
+}
